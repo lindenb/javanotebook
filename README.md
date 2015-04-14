@@ -11,7 +11,7 @@ What's new in Java
 
 * http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
 * https://leanpub.com/whatsnewinjava8/read
-
+* https://github.com/katoquro/jdk8-lambda-samples
 
 ##History
 
