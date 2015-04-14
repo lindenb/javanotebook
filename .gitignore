@@ -13,3 +13,6 @@ hs_err_pid*
 *~
 jeter*
 *.tmp
+jdk8/sequences.xml
+jdk8/tmp
+

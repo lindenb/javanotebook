@@ -2,16 +2,13 @@
 
 What's new in Java
 
+* [What's new in JDK8](jdk8/jdk8.md)
+
 ##Contribute
 
 - Issue Tracker: http://github.com/lindenb/javanotebook/issues`
 - Source Code: http://github.com/lindenb/javanotebook
 
-##See also
-
-* http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
-* https://leanpub.com/whatsnewinjava8/read
-* https://github.com/katoquro/jdk8-lambda-samples
 
 ##History
 
@@ -20,4 +17,9 @@ What's new in Java
 ## License
 
 The project is licensed under the MIT license.
+
+
+## Author
+
+* Pierre Lindenbaum PhD @yokofakun
 

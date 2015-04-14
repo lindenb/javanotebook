@@ -53,6 +53,11 @@ public class TSeqSet {
     }
 
 
+  public TSeq[] toArray()
+  	{
+  	return this.getTSeq().toArray(new TSeq[this.getTSeq().size()]);
+  	}
+
 	public static TSeqSet eFetch(int...ids) throws java.io.IOException
 		{
 		StringBuilder sb=new StringBuilder("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&retmode=xml&rettype=fasta&id=");
@@ -61,16 +66,35 @@ public class TSeqSet {
 			if(i>0) sb.append(",");
 			sb.append(String.valueOf(ids[i]));
 			}
-		return eFetch(new java.net.URL(sb.toString()));
+		return load(new java.net.URL(sb.toString()));
 		}
-
-	public static TSeqSet eFetch(java.net.URL url) throws java.io.IOException
+	
+	public static TSeqSet load(String filename) throws java.io.IOException
+		{
+		return load(new java.io.File(filename));
+		}
+	
+	public static TSeqSet load(java.io.File f) throws java.io.IOException
+		{
+		java.io.FileInputStream in=null;
+		try
+			{
+			in = new java.io.FileInputStream(f);
+			return load(in);
+			}
+		finally
+			{
+			if(in!=null) try{in.close();}catch(java.io.IOException err){}
+			}
+		}
+	
+	public static TSeqSet load(java.net.URL url) throws java.io.IOException
 		{
 		java.io.InputStream in=null;
 		try
 			{
 			in = url.openStream();
-			return eFetch(in);
+			return load(in);
 			}
 		finally
 			{
@@ -80,7 +104,7 @@ public class TSeqSet {
 
 
 
-	public static TSeqSet eFetch(java.io.InputStream in) throws java.io.IOException
+	public static TSeqSet load(java.io.InputStream in) throws java.io.IOException
 		{
 		try
 			{
