@@ -64,29 +64,78 @@ jnb_main_end
 
 )
 
+## java.util.function.Predicate
+
+Functional interfaces provide target types for lambda expressions and method references.
+
+See https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html.
+
+jnb_simple_java(`
+
+private static java.util.List<TSeq> filterSequences(
+	java.util.List<TSeq> sequences,
+	java.util.function.Predicate<TSeq> pred
+	)
+	{
+	java.util.List<TSeq> L= new java.util.ArrayList<>();
+	for(TSeq tseq: sequences)
+		{
+		if(pred.test(tseq)) L.add(tseq);
+		}
+	return L;
+	}
+
+public static void main(String args[]) throws Exception
+	{
+	java.util.List<TSeq> sequences = TSeqSet.load("sequences.xml").getTSeq();
+	java.util.function.Predicate<TSeq> predicate = 
+		new java.util.function.Predicate<TSeq>()
+			{
+			@Override
+			public boolean test(TSeq seq)
+				{
+				return seq.length()>50 && seq.length()<200;
+				}
+			};
+	System.out.println("#Sequences with 50<length<200");
+	for(TSeq seq: filterSequences(sequences,predicate))
+		{
+		System.out.println(seq.getFastaHeader());
+		}
+	
+	/* now invert predicate */
+	predicate= predicate.negate();
+	System.out.println("\n#Sequences with not(50<length<200)");
+	for(TSeq seq: filterSequences(sequences,predicate))
+		{
+		System.out.println(seq.getFastaHeader());
+		}
+	
+	/* append a LOGICAL-OR expression */
+	predicate= predicate.or(
+		new java.util.function.Predicate<TSeq>()
+			{
+			@Override
+			public boolean test(TSeq seq)
+				{
+				return seq.getTSeqDefline().contains("retrovirus");
+				}
+			});
+	System.out.println("\n#Sequences with not(50<length<200) or defline contains retrovirus");
+	for(TSeq seq: filterSequences(sequences,predicate))
+		{
+		System.out.println(seq.getFastaHeader());
+		}
+	}
+
+')
+
 m4_divert(-1)
-## Package java.util.function
-see jnb_md_anchor(`https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html',`java.util.function javadoc').
-
-### Predicate
-
-
-
 ## Lambda expressions.
 see jnb_md_anchor(`jnb_docurl(`tutorial/java/javaOO/lambdaexpressions.html')').
-A jnb_md_bold(`functional interface') is any interface that contains only one abstract method.
+A **functional interface** is any interface that contains only one abstract method.
 Because a functional interface contains only one abstract method, you can omit the name of that method when you implement it.
- 
-
-
-
-
-jnb_simple_java(int i;jnb_main_begin` System.out.println("Hello World");'jnb_main_end)
-
 m4_divert
-
-
-
 
 # See also
 
