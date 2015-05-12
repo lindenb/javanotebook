@@ -16,3 +16,6 @@ jeter*
 jdk8/sequences.xml
 jdk8/tmp
 
+.classpath
+.project
+

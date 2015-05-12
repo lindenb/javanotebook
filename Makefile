@@ -1,9 +1,12 @@
 .PHONY:all jdk7 jdk7-jmx-01
 
-all: jdk7-procbuilder-01
 
-jdk7: jdk7-jmx-01 jdk7-procbuilder-01
-
+jdk7-compiler-api-01:
+	mkdir -p tmp
+	javac -d tmp -sourcepath jdk7/java jdk7/java/com/github/lindenb/compiler/*.java
+	java -cp tmp com.github.lindenb.compiler.DynamicJavaCompilation
+	
+	
 jdk7-procbuilder-01:
 	mkdir -p tmp
 	javac -d tmp -sourcepath jdk7/java jdk7/java/com/github/lindenb/procbuilder/ProcessBuilderPool.java
