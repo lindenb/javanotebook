@@ -1,8 +1,14 @@
 SHELL=/bin/bash
 .PHONY:all clean
 
-all: jdk8.md
+all: jdk8.md readlines01
 	cat $<
+	
+readlines01: 
+	mkdir -p tmp
+	javac -d tmp -sourcepath java java/com/github/lindenb/io/ReadLines01.java
+	java -cp tmp com.github.lindenb.io.ReadLines01 java/com/github/lindenb/io/ReadLines01.java
+	rm -rf tmp
 
 jdk8.md : jdk8.m4
 	m4 -P $< > $@
